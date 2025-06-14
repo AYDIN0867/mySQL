@@ -63,6 +63,20 @@ soru 1- kisiler tablosundan isim ve soy isim bilgilerini listeleyiniz....
 SELECT isim, soyisim
 FROM kisiler;
 
+/*
+Kisiler tablosundan isim,yas ve sehir bilgilerini listeleyiniz.
+
+*/
+
+-- ****
+
+SELECT isim, sehir, yas
+FROM kisiler;
+
+
+
+
+
 
 
 
