@@ -74,9 +74,51 @@ SELECT isim, sehir, yas
 FROM kisiler;
 
 
+-- SELECT ifadesinden sonra yazilan column isimlerinin sirası result'taki sonuc kumesini belirler
+
+/*
+===============================================================
+WHERE ile Filtreleme
+================================================================
+
+Where koşulu ,SQL sorgularında belirli kriterlere göre verileri filtrelemek
+için kullanılır.where ile karşılaştrıma ve mantıksal operatörler daha spesifik
+ve dinamik sorgular oluşturmak için kullanılabiliri.
+*/
+
+/*
+
+******************SYNTAX***************
+SELECT * FROM tablo_adi
+WHERE sütun ="istenen deger";
+
+*/
 
 
+/*
+Kişiler tablosundaki sehir=antalya olan kişileri listeleyiniz
 
+*/
+
+SELECT * FROM  kisiler
+WHERE sehir = 'Antalya';
+
+
+/*
+Kişiler tablosundaki yası 22 olan kişileri listeleyiniz
+
+*/
+
+c
+
+/*
+Kişiler tablosundaki sehri Ankara olanların yas,isim ve soy isim bilgileriniz listeleyiniz
+
+*/
+
+SELECT yas, isim, soyisim
+FROM kisiler
+WHERE sehir = 'Ankara' ;
 
 
 
