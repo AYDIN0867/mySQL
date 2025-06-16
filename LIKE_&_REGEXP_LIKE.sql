@@ -56,4 +56,96 @@ SELECT * FROM personel
 WHERE isim
 LIKE '%Ayse%';
 
+/*============================================================
+Personel tablosundan  Isminin 2. harfi 'e' olup diger harflerinde 'y' olan
+personeli listeleyiniz 
+=============================================================*/
+
+SELECT * FROM personel
+WHERE isim
+LIKE '_e%'
+AND isim LIKE'%y%';
+
+/*=============================================
+REGEXP_LIKE OPERATORU
+1-REGEXP_LIKE (veya bazen "RLIKE" olarak da bilinir), daha karmaşık ve guclu bir arama yapmak icin duzenli ifadeleri
+(regular expression) kullanır.
+2-Düzenli ifadeler, metin icindeki PATERN'leri tanımlamak icin kullanılan bir dil veya sözdizimidir.
+3-"REGEXP" operatoru,çok daha spesifik ve esnek aramalar yapmamıza olarak tanır.
+4-[!-]=Butun karakterleri karsilayan tek bir karakteri ifade eder
+[a-zA-Z0-9]=Harf ve rakanlari temsil eden bir karakteri ifade eder.
+5-'^' isareti baslangici belirtir
+6-'$' işareti bitisi belirtir
+7-'|' karakteri veya anlamımda kulanılır
+8-'.' herhangi bir tek karakter anlamına gelir
+
+Örneğin "REGEXP '^J.son$'" ifadesi "j" ile başlayıp "son" ile biten tüm metin değerlerin (örn. "Jason" ama 
+"Wilson" değil
+===============================================*/
+
+CREATE TABLE kelimeler(
+id int UNIQUE,
+kelime VARCHAR(50),
+harf_sayisi int
+
+);
+
+INSERT INTO kelimeler VALUES
+(1001, 'hot', 3),
+(1002, 'hat', 3),
+(1003, 'hit', 3),
+(1004, 'hbt', 3),
+(1005, 'hct', 3),
+(1006, 'adem', 4),
+(1007, 'selim', 5),
+(1008, 'yusuf', 5),
+(1009, 'hip', 3),
+(1010, 'HOT', 3),
+(1011, 'hOt', 3),
+(1012, 'h9t', 3),
+(1013, 'hoot', 4),
+(1014, 'haaat', 5),
+(1015, 'hooooot', 7),
+(1016, 'h-t', 3),
+(1017, 'hOOOt', 5),
+(1018, 'hOOOt', 5),
+(1019, 'O', 1);
+
+SELECT * FROM kelimeler;
+
+
+/*================================================0
+Kelimeler tablosundan icerisinde 'ot' veya 'at' bulunan kelimeleri
+listeleyiniz
+==================================================
+*/
+SELECT kelime
+FROM kelimeler
+WHERE REGEXP_LIKE (kelime, 'ot|at');
+
+/*=========================================
+CASE SENSETIVE (Büyük/Kücük Duyarlılık)
+Kullanım: sorgu sonuna 'c' seklinde patern eklenerek belirtilmelidir.
+==========================================*/
+
+/*
+Case Insensitive 
+Kullanım: sorgu saonuna 'i' seklinde patern eklenerek belirtilmelidir.
+*/
+
+-- NOT: MYsql de default caseType insentive olarak kabul edilmektedir
+-- Case sensitive oldugu özellikle belirtilmemis ise default type degeri
+-- olan insentive gecerlidir
+-- Inseentive olmasi gerektigini 'i' ile belirtmemize gerek yoktur.
+
+/*================================================0
+Kelimeler tablosundan icerisinde 'ot' veya 'at' bulunan kelimeleri
+listeleyiniz
+==================================================
+*/
+
+SELECT kelime
+FROM kelimeler
+WHERE REGEXP_LIKE(kelime, 'ot|at','c');
+
 
