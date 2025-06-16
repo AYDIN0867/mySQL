@@ -148,4 +148,54 @@ SELECT kelime
 FROM kelimeler
 WHERE REGEXP_LIKE(kelime, 'ot|at','c');
 
+/*================================================0
+Kelimeler tablosundan icerisinde 'ho' veya 'hi' bulunan kelimeleri
+case-sensitive dikkat etmeden listeleyiniz
+==================================================
+*/
+
+SELECT kelime
+FROM kelimeler
+WHERE REGEXP_LIKE(kelime, 'ho|hi', 'i');
+
+SELECT kelime
+FROM kelimeler
+WHERE REGEXP_LIKE(kelime, 'ho|hi');
+
+/*================================================0
+Kelimeler tablosundan icerisinde h ile baslayip t ile biten 3 karakterli kelimeleri
+(h ile t kucuk harfli olanlari )listeleyiniz
+==================================================
+*/
+SELECT kelime
+FROM kelimeler
+WHERE REGEXP_LIKE(kelime, '^h[!-~]t$', 'c');
+
+SELECT kelime
+FROM kelimeler
+WHERE REGEXP_LIKE(kelime, '^h.t$', 'c');
+
+SELECT kelime
+FROM kelimeler
+WHERE REGEXP_LIKE(kelime, '^h[0-9]t$', 'c');
+
+SELECT kelime
+FROM kelimeler
+WHERE REGEXP_LIKE(kelime, '^h[a-zA-Z]t$', 'c');
+
+/*
+----------------------------------------------KARŞILAŞTIRMA------------------------------------------------------
+Esneklik:"REGEXP" daha esnek ve gucludur, karmasık desenleri tanımlayabilir.
+"LIKE" ise daha basit ve sınırlı desenlerle çalışır.
+Performans:"LIKE" operatoru genellikle "REGEXP" oparatorune göre daha hızlıdır,
+çünkü daha basit desenleri işler
+Kullanım kolaylıgı: "LIKE" daha basit ve anlaşılması kolaydır."REGEXP" ise düzenli ifadelerin
+nasıl calıstıgını bilmeyi gerektirir, bu da ögrenme egrisini artırır.
+
+*/
+
+
+
+
+
 
