@@ -137,6 +137,38 @@ FROM tablo_adı;
 Satis raporu tablosundaki urunlerin ortalama birim fiyatı nedir?
 ===============================================================*/
 
+SELECT AVG(birim_fiyati)
+FROM satis_raporu;
+
+/*===========================================================================
+Satis raporu tablosundaki kulaklık ve yazıcıların ortalama satiş fiyatı nedir?
+=============================================================================*/
+SELECT AVG(satis_miktari)
+FROM satis_raporu
+WHERE urun_adi IN('Kulaklık', 'Yazıcı');
+
+/*====================================
+   AGGREGATE FUNCTIONS / MAX()&MIN()
+======================================*/
+
+/*
+******************SYNTAX***************
+SELECT MAX(sütun_adi) / MIN(sütun_adi)
+FROM tablo_adı;
+****************************************/
+
+/*===========================================================================
+Satis raporu tablosundaki en düşük birim fiyatı nedir?
+=============================================================================*/
+SELECT  MIN(birim_fiyati)
+FROM satis_raporu;
+
+/*===========================================================================
+Satis raporu tablosundaki en eski ve en yeni satis tarihleri nelerdir?
+=============================================================================*/
+
+SELECT MIN(satis_tarihi), MAX(satis_tarihi)
+FROM satis_raporu;
 
 
 
