@@ -108,7 +108,7 @@ ogrenciler TABLOSUNU GORUNTULEYINIZ
 
 SELECT * FROM ogrenciler;
 
-
+-- subquery önemli....inreview coin sorarlar..
 
 
 
