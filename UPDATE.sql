@@ -122,3 +122,110 @@ SET SQL_SAFE_UPDATES = 0;
 
 SELECT * FROM urun;
 
+-- *************************************************************
+
+
+CREATE TABLE cocuklar(
+id INT,
+isim VARCHAR(20),
+veli_isim VARCHAR(10),
+grade DOUBLE,
+CONSTRAINT id_pk PRIMARY KEY (id)
+);
+
+INSERT INTO cocuklar VALUES
+ (123, 'Ali Can', 'Hasan',75), 
+ (124, 'Merve Gul', 'Ayse',85), 
+ (125, 'Kemal Yasa', 'Hasan',85),
+ (126, 'Rumeysa Aydin', 'Zeynep',85),
+ (127, 'Oguz Karaca', 'Tuncay',85),
+ (128, 'Resul Can', 'Tugay',85),
+ (129, 'Tugay Kala', 'Osman',45);
+
+SELECT * FROM cocuklar;
+
+CREATE TABLE puanlar
+(
+ogrenci_id INT,
+ders_adi VARCHAR(10),
+yazili_notu DOUBLE,
+CONSTRAINT puanlar_fk 
+FOREIGN KEY (ogrenci_id) 
+REFERENCES cocuklar (id)
+);
+
+INSERT INTO puanlar VALUES ('123','kimya',75); 
+INSERT INTO puanlar VALUES ('124','fizik',65); 
+INSERT INTO puanlar VALUES ('125','tarih',90); 
+INSERT INTO puanlar VALUES ('126','kimya',87); 
+INSERT INTO puanlar VALUES ('127','tarih',69); 
+INSERT INTO puanlar VALUES ('128','kimya',93); 
+INSERT INTO puanlar VALUES ('129','fizik',25);
+
+SELECT * FROM puanlar;
+
+-- Tum cocuklarin gradelerini puanlar tablosundaki yazili_notu ile update edin.
+
+UPDATE cocuklar
+SET grade = (SELECT yazili_notu
+             FROM puanlar
+             WHERE puanlar.ogrenci_id = cocuklar.id);
+ SET SQL_SAFE_UPDATES = 0; 
+ 
+ SELECT * FROM cocuklar;
+ 
+ -- Affected  Row = 7 
+ -- Actual =6
+ 
+ -- Ismi Kemal Yasa olan ogrencinin grade'ini puanlar tablosundaki 
+-- ogrenci id'si 128 olan yazili notu ile update edin.
+ 
+UPDATE cocuklar
+SET grade= (SELECT yazili_notu
+            FROM puanlar
+            WHERE puanlar.ogrenci_id = 128)
+WHERE isim = 'Kemal Yasa';            
+SET SQL_SAFE_UPDATES = 0;
+
+SELECT * FROM cocuklar;            
+
+-- Puanlar tablosundaki ders_adi 'fizik' olan ogrenci_id degerini 
+-- cocuklar tablosundaki grade degeri 25 olan ogrencinin id ile guncelleyiniz.
+
+-- PARENT TABLE -> cocuklar (PRIMARY KEY oldugu tablo)
+-- CHILD TABLE -> puanlar   (FOREIGN KEY oldugu tablo)
+
+-- PARENT tabloda PRIMARY KEY COLUMN'inda olmayan herhangi bir data 
+-- CHILD tabloda FOREIGN KEY COLUMN'inda olamaz.
+
+UPDATE puanlar 
+SET ogrenci_id = (SELECT id
+                  FROM cocuklar
+                  WHERE grade = 25)
+                  
+ WHERE ders_adi ='Fizik';
+ SET SQL_SAFE_UPDATES = 0;
+
+SELECT * FROM puanlar;
+
+-- Puanlar tablosundaki ders_adi 'kimya' olan ogrenci_id degerini 
+-- cocuklar tablosundaki id degeri 125 olan ogrencinin grade degeri ile guncelleyiniz.
+
+
+-- PARENT tabloda PRIMARY KEY COLUMN'inda olmayan herhangi bir data 
+-- CHILD tabloda FOREIGN KEY COLUMN'inda olamaz.
+
+-- PARENT TABLODA PRIMARY KEY COLUMN 'inda OLMAYAN HERHANGİ BİR DATA 
+-- CHILD TABLODA FOREIGN KEY COLUMN İNDA OLAMAZ
+
+UPDATE puanlar 
+SET ogrenci_id = (SELECT grade
+                  FROM cocuklar
+                  WHERE id = 125) -- 93
+                  
+ WHERE ders_adi ='Kimya';
+ SET SQL_SAFE_UPDATES = 0;
+
+SELECT * FROM puanlar;
+
+
