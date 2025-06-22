@@ -103,7 +103,7 @@ SELECT * FROM personel;
 /*
 ====================SORU1==========================
 ogrenciler TABLOSUNU GORUNTULEYINIZ
-==============================================
+==================================================
 */
 
 SELECT * FROM ogrenciler;
